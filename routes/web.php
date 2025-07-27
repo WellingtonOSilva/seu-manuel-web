@@ -12,18 +12,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
-    Route::get('vehicles', [\App\Http\Controllers\MyCars\VehiclesController::class, 'index'])
+    Route::get('vehicles', [\App\Http\Controllers\Vehicles\VehiclesController::class, 'index'])
         ->name('vehicles');
-    Route::get('vehicles/new', [\App\Http\Controllers\MyCars\VehiclesController::class, 'showCreate'])
+    Route::get('vehicles/new', [\App\Http\Controllers\Vehicles\VehiclesController::class, 'showCreate'])
         ->name('vehicles-new');
-    Route::get('/vehicles/{id}', [\App\Http\Controllers\MyCars\VehiclesController::class, 'detail'])->name('vehicles.show');
-    Route::delete('/vehicles/{id}', [\App\Http\Controllers\MyCars\VehiclesController::class, 'destroy'])->name('vehicles.destroy');
-    Route::post('vehicles', [\App\Http\Controllers\MyCars\VehiclesController::class, 'store']);
+    Route::get('/vehicles/{id}', [\App\Http\Controllers\Vehicles\VehiclesController::class, 'detail'])->name('vehicles.show');
+    Route::delete('/vehicles/{id}', [\App\Http\Controllers\Vehicles\VehiclesController::class, 'destroy'])->name('vehicles.destroy');
+    Route::post('vehicles', [\App\Http\Controllers\Vehicles\VehiclesController::class, 'store']);
 
     Route::get('events', [\App\Http\Controllers\Events\EventsController::class, 'index'])
         ->name('events.show');
-    Route::get('events/create', [\App\Http\Controllers\Events\EventsController::class, 'store'])
+    Route::get('events/create', [\App\Http\Controllers\Events\EventsController::class, 'showCreatePage'])
         ->name('events.create');
+    Route::post('events', [\App\Http\Controllers\Events\EventsController::class, 'store']);
+
+    Route::get('/chat/stream', \App\Http\Controllers\ChatController::class);
 });
 
 

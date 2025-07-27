@@ -12,9 +12,10 @@ import {
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Event } from '@/types/event';
+import { EventRow } from '@/types/table/event-row';
+import { router } from '@inertiajs/react';
 
-export const columns: ColumnDef<Event>[] = [
+export const columns: ColumnDef<EventRow>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -32,7 +33,7 @@ export const columns: ColumnDef<Event>[] = [
     },
     {
         accessorKey: 'type',
-        header: 'Type',
+        header: 'Tipo do evento',
         cell: ({ row }) => <div className="capitalize">{row.getValue('type')}</div>,
     },
     {
@@ -40,23 +41,22 @@ export const columns: ColumnDef<Event>[] = [
         header: ({ column }) => {
             return (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Occurrence Date
+                    Data do evento
                     <ArrowUpDown />
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="lowercase">aaa</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue('occurrenceDate')}</div>,
     },
     {
-        accessorKey: 'vehicle',
-        header: () => <div className="text-right">Vehicle</div>,
-        cell: ({ row }) => <div>{row.original.vehicle.name ?? ''}</div>,
+        accessorKey: 'vehicleName',
+        header: () => <div>Veículo</div>,
+        cell: ({ row }) => <div>{row.getValue('vehicleName')}</div>,
     },
     {
         id: 'actions',
         enableHiding: false,
         cell: ({ row }) => {
-            const payment = row.original;
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -66,11 +66,10 @@ export const columns: ColumnDef<Event>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>Copy payment ID</DropdownMenuItem>
+                        <DropdownMenuLabel>Ações</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
+                        <DropdownMenuItem>Visualizar evento</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => router.visit(route('vehicles.show', { id: row.original.vehicleId }))}>Visualizar veículo</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

@@ -14,12 +14,12 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'My Vehicles',
+        title: 'Minha garagem',
         href: '/vehicles',
         icon: Car,
     },
     {
-        title: 'Events',
+        title: 'Eventos e Manutenções',
         href: '/events',
         icon: ScrollText,
     },

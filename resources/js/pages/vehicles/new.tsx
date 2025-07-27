@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { BreadcrumbItem } from '@/types';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Brand } from '@/types/brand';
@@ -17,14 +17,14 @@ type PageProps = {
 };
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'My Cars', href: '/vehicles' },
-    { title: 'New', href: '/vehicles/new' },
+    { title: 'Minha garagem', href: '/vehicles' },
+    { title: 'Novo veículo', href: '/vehicles/new' },
 ];
 
 export default function CreateCar() {
     const { brands, models } = usePage<PageProps>().props;
 
-    const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
+    const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         licensePlate: '',
         brand: '',
         model: '',
@@ -43,7 +43,7 @@ export default function CreateCar() {
             setData('model', '');
             setData('version', '');
         }
-    }, [data.brand]);
+    }, [data.brand, models, setData]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -188,7 +188,7 @@ export default function CreateCar() {
                     </div>
 
                     <div className="flex justify-end">
-                        <Button type="submit" disabled={processing}>
+                        <Button type="submit" disabled={processing ?? recentlySuccessful}>
                             {processing ? 'Saving...' : 'Add Car'}
                         </Button>
                     </div>
