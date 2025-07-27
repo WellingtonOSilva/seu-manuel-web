@@ -1,52 +1,39 @@
-import { Head, router } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { type BreadcrumbItem } from '@/types';
-import { DataTable } from '@/pages/events/data-table';
+import { DataTable } from '@/components/ui/events/data-table';
 import { Event, EventType } from '@/types/event';
+import * as converters from '@/helpers/converters';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Events',
+        title: 'Eventos e Manutenções',
         href: '/events',
     },
 ];
+
+type PageProps = {
+    events: Event[]
+}
 export default function Events() {
-    const data: Event[] = [
-        {
-            id: 'aa',
-            type: EventType.INSPECTION,
-            vehicle: {
-                name: 'aaa',
-                licensePlate: 'aaa',
-                id: '',
-                year: 0,
-                km: 0,
-                isNew: false,
-                version: undefined,
-                owner: undefined,
-            },
-            data: {},
-            occurrenceDate: new Date(),
-            description: 'aaaa',
-        },
-    ];
+    const { events } = usePage<PageProps>().props
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Events" />
+            <Head title="Eventos e Manutenções" />
             <div className="flex h-full flex-1 flex-col gap-6 p-4">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold">Events</h1>
+                    <h1 className="text-2xl font-bold">Eventos e Manutenções</h1>
                     <Button asChild>
                         <a href={'/events/create'}>
                             <Plus className="mr-2 h-4 w-4" />
-                            Add a new event
+                            Novo evento
                         </a>
                     </Button>
                 </div>
 
-                <DataTable data={data} />
+                <DataTable data={converters.toEventTable(events)} />
             </div>
         </AppLayout>
     );
