@@ -41,7 +41,7 @@ export const columns: ColumnDef<Vehicle>[] = [
     },
     {
         accessorKey: "name",
-        header: "Name",
+        header: "Nome",
         cell: ({ row }) => (
             <div className="capitalize">{row.getValue("name")}</div>
         ),
@@ -54,7 +54,7 @@ export const columns: ColumnDef<Vehicle>[] = [
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    License Plate
+                    Placa
                     <ArrowUpDown />
                 </Button>
             )
@@ -63,13 +63,12 @@ export const columns: ColumnDef<Vehicle>[] = [
     },
     {
         accessorKey: "km",
-        header: () => <div className="text-right">KM</div>,
+        header: () => <div className="text-right">Quilometragem</div>,
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue("km"))
             // Format the amount as a dollar amount
-            const formatted = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
+            const formatted = new Intl.NumberFormat("pt-BR", {
+                style: "decimal",
             }).format(amount)
             return <div className="text-right font-medium">{formatted}</div>
         },
@@ -82,29 +81,29 @@ export const columns: ColumnDef<Vehicle>[] = [
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
+                            <span className="sr-only">Abrir menu</span>
                             <MoreHorizontal />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuLabel>Ações</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => router.visit(route('vehicles.show', row.original.id))}>View detail</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => router.visit(route('vehicles.show', row.original.id))}>Visualizar detalhes</DropdownMenuItem>
                         <DropdownMenuItem
                             onClick={() => {
-                                if (confirm('Are you sure you want to deactivate this vehicle?')) {
+                                if (confirm('Você tem certeza que quer excluir esse veículo?')) {
                                     router.delete(route('vehicles.destroy', row.original.id), {
                                         onSuccess: () => {
-                                            toast.success('Vehicle deactivated successfully.');
+                                            toast.success('Vehicle excluído com sucesso');
                                         },
                                         onError: () => {
-                                            toast.error('Something went wrong.');
+                                            toast.error('Algo deu errado...');
                                         },
                                     });
                                 }
                             }}
                         >
-                            Deactivate
+                            Excluir
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

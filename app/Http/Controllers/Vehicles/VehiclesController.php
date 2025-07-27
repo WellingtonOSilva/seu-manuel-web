@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\MyCars;
+namespace App\Http\Controllers\Vehicles;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateVehicleRequest;
 use App\Services\BrandService;
+use App\Services\EventService;
 use App\Services\ModelService;
 use App\Services\VehicleService;
 use Inertia\Inertia;
@@ -16,6 +17,7 @@ class VehiclesController extends Controller
         public BrandService $brandService,
         public ModelService $modelService,
         public VehicleService $vehicleService,
+        public EventService $eventService,
     ) {}
 
     public function index(): Response
@@ -55,9 +57,11 @@ class VehiclesController extends Controller
     public function detail(string $id): Response
     {
         $vehicle = $this->vehicleService->find($id);
+        $events = $this->eventService->listAllByVehicleId($id);
 
         return Inertia::render('vehicles/detail', [
             'vehicle' => $vehicle,
+            'events' => $events
         ]);
     }
 
