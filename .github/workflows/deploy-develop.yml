@@ -45,10 +45,12 @@ jobs:
           php artisan route:cache
           php artisan view:cache
 
+      - name: 🧪 Install Serverless CLI
+        run: npm install -g serverless
+
       - name: ⬆️ Deploy to AWS (develop)
-        uses: serverless/github-action@v3
-        with:
-          args: deploy --stage develop
+        run: serverless deploy --stage develop
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: sa-east-1
