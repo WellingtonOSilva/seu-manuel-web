@@ -1,4 +1,7 @@
-service: laravel
+org: wellingtonosilva
+app: seu-manuel
+frameworkVersion: '~4.17.2'
+service: seu-manuel-web
 
 # Set your team ID if you are using Bref Cloud
 #bref:
