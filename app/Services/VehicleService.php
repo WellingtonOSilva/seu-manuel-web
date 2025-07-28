@@ -3,11 +3,9 @@
 namespace App\Services;
 
 use App\Data\BodyStyle;
-use App\Data\Brand;
 use App\Data\Id;
 use App\Data\Vehicle;
 use App\Http\Requests\CreateVehicleRequest;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class VehicleService

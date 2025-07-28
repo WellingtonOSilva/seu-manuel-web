@@ -23,7 +23,7 @@ class EventService
         $this->baseUrl = 'fake.com';
         $this->events = [
             [
-                'id' => 'eve-2',
+                'id' => 'event-001',
                 'type' => EventType::MAINTENANCE_CORRECTIVE,
                 'km' => 5000,
                 'vehicleId' => 'a',

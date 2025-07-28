@@ -11,7 +11,7 @@ class Brand extends Data
         public string $id,
         public string $name,
         public string|Optional $logoUrl,
-        public \DateTime $createdAt,
-        public \DateTime $updatedAt,
+        public \DateTime|Optional $createdAt,
+        public \DateTime|Optional $updatedAt,
     ){}
 }
