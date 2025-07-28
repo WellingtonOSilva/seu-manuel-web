@@ -4,7 +4,7 @@ import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { type BreadcrumbItem } from '@/types';
 import { DataTable } from '@/components/ui/events/data-table';
-import { Event, EventType } from '@/types/event';
+import { Event } from '@/types/event';
 import * as converters from '@/helpers/converters';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -15,10 +15,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 type PageProps = {
-    events: Event[]
-}
+    events: Event[];
+};
 export default function Events() {
-    const { events } = usePage<PageProps>().props
+    const { events } = usePage<PageProps>().props;
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Eventos e Manutenções" />
