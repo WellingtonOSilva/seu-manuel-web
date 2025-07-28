@@ -116,6 +116,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
             icon,
             iconColor,
             status = 'completed',
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             connectorColor,
             showConnector = true,
             iconsize,
@@ -368,6 +369,7 @@ TimelineTitle.displayName = 'TimelineTitle';
 const TimelineIcon = ({
                           icon,
                           color = 'primary',
+                          // eslint-disable-next-line @typescript-eslint/no-unused-vars
                           status = 'completed',
                           iconSize = 'md',
                       }: {
