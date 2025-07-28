@@ -29,7 +29,6 @@ const kpis = [
     { label: 'Variação na tabela FIPE (últimos 12 meses)', value: 1.25, sub: '▲ 89%' },
 ];
 
-// Gráfico (últimas 24 h). Use Date‑fns/moment se precisar formatar.
 const hourlyData = [
     { hour: '2 pm', value: 4 },
     { hour: '3 pm', value: 0 },

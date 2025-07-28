@@ -33,7 +33,7 @@ export default function MaintenanceSection({ vehicleId }: {vehicleId: string}) {
         <section className="grid grid-cols-12 gap-6">
             {/* Timeline / Revisões */}
             <div className="col-span-6 overflow-y-auto max-h-100">
-                <TimelineLayout items={timeLineData} size="md" iconColor="primary" customIcon={<Wrench />} />
+                <TimelineLayout items={timeLineData} size="md" connectorColor={'primary'} iconColor="primary" customIcon={<Wrench />} />
             </div>
 
             {/* Chat com GenAI */}
