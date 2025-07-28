@@ -33,7 +33,6 @@ class ChatController extends Controller
 
         $cacheKey = "chat:vehicle:{$vehicleId}:session:{a}";
 
-        // Carrega histórico do cache (ou inicializa com system prompt)
         $history = Cache::get($cacheKey, []);
 
         if (empty($history)) {
@@ -49,19 +48,16 @@ class ChatController extends Controller
             ];
         }
 
-        // Adiciona as novas mensagens do usuário
         foreach ($incomingMessages as $msg) {
             if ($msg['role'] === 'user') {
                 $history[] = $msg;
             }
         }
 
-        // Mantém o system + as últimas 9 mensagens
         $systemMessage = $history[0];
         $lastMessages = array_slice($history, -9);
         $finalMessages = array_merge([$systemMessage], $lastMessages);
 
-        // Faz o stream internamente e monta a resposta final
         $assistantMessage = ['role' => 'assistant', 'content' => ''];
         $stream = OpenAI::chat()->createStreamed([
             'model' => 'gpt-4',
