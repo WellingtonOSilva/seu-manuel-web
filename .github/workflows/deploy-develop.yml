@@ -9,6 +9,7 @@ jobs:
   deploy:
     name: Build & Deploy Develop
     runs-on: ubuntu-latest
+    environment: develop
 
     env:
       AWS_REGION: us-east-1
@@ -41,14 +42,34 @@ jobs:
 
       - name: ⚙️ Laravel optimizations
         run: |
-          php artisan config:cache
           php artisan route:cache
           php artisan view:cache
 
+      - name: 🧪 Install Serverless CLI
+        run: npm install -g serverless
+
       - name: ⬆️ Deploy to AWS (develop)
-        uses: serverless/github-action@v3
-        with:
-          args: deploy --stage develop
+        run: serverless login && serverless deploy --stage develop
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: sa-east-1
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+          SERVERLESS_LICENSE_KEY: ${{ secrets.SERVERLESS_LICENSE_KEY }}
+          APP_NAME: ${{ vars.APP_NAME }}
+          APP_ENV: ${{ vars.APP_ENV }}
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_DEBUG: ${{ vars.APP_DEBUG }}
+          APP_URL: ${{ vars.APP_URL }}
+          APP_PORT: ${{ vars.APP_PORT }}
+          DB_CONNECTION: ${{ vars.DB_CONNECTION }}
+          DB_HOST: ${{ vars.DB_HOST }}
+          DB_PORT: ${{ vars.DB_PORT }}
+          DB_DATABASE: ${{ vars.DB_DATABASE }}
+          DB_USERNAME: ${{ vars.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          SESSION_DRIVER: ${{ vars.SESSION_DRIVER }}
+          SESSION_LIFETIME: ${{ vars.SESSION_LIFETIME }}
+          QUEUE_CONNECTION: ${{ vars.QUEUE_CONNECTION }}
+          CACHE_STORE: ${{ vars.CACHE_STORE }}
+          OPENAI_API_KEY: ${{ secrets.SLS_OPENAI_API_KEY }}
