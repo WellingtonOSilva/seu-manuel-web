@@ -14,8 +14,21 @@ provider:
     # Environment variables
     environment:
         APP_ENV: ${sls:stage} # Or use ${sls:stage} if you want the environment to match the stage
-        SESSION_DRIVER: cookie # Change to database if you have set up a database
-
+        APP_NAME: ${env:APP_NAME}
+        APP_KEY: ${env:APP_KEY}
+        APP_DEBUG: ${env:APP_DEBUG}
+        APP_URL: ${env:APP_URL}
+        APP_PORT: ${env:APP_PORT}
+        DB_CONNECTION: ${env:DB_CONNECTION}
+        DB_HOST: ${env:DB_HOST}
+        DB_PORT: ${env:DB_PORT}
+        DB_DATABASE: ${env:DB_DATABASE}
+        DB_USERNAME: ${env:DB_USERNAME}
+        DB_PASSWORD: ${env:DB_PASSWORD}
+        SESSION_DRIVER: ${env:SESSION_DRIVER}
+        QUEUE_CONNECTION: ${env:QUEUE_CONNECTION}
+        CACHE_STORE: ${env:CACHE_STORE}]
+        OPENAI_API_KEY: ${env:OPENAI_API_KEY}
 package:
     # Files and directories to exclude from deployment
     patterns:
