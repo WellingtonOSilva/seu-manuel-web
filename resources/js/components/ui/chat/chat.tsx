@@ -15,45 +15,41 @@ export function Chat({ vehicleId }: { vehicleId: string }) {
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        // Scroll automático para o final ao adicionar mensagens
         containerRef.current?.scrollTo({
             top: containerRef.current.scrollHeight,
             behavior: "smooth",
         });
     }, [messages]);
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         if (!input.trim() || loading) return;
 
         const updated = [...messages, { role: "user", content: input.trim() }];
+        // @ts-expect-error disabling
         setMessages(updated);
         setInput("");
         setLoading(true);
 
-        const eventSource = new EventSource(
-            `/chat/stream?${new URLSearchParams({
+        try {
+            const response = await fetch(`/chat?${new URLSearchParams({
                 vehicle: vehicleId,
                 messages: JSON.stringify(updated),
-            })}`
-        );
+            })}`);
 
-        let assistantReply = "";
-
-        eventSource.onmessage = (e) => {
-            if (e.data === "[DONE]") {
-                setMessages((prev) => [...prev, { role: "assistant", content: assistantReply }]);
+            if (!response.ok) {
+                console.error("Erro ao obter resposta do assistente.");
                 setLoading(false);
-                eventSource.close();
-            } else {
-                assistantReply += e.data;
+                return;
             }
-        };
 
-        eventSource.onerror = (e) => {
-            console.error("Erro no stream:", e);
-            eventSource.close();
+            const assistant = await response.json();
+
+            setMessages((prev) => [...prev, { role: "assistant", content: assistant.content }]);
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+        } finally {
             setLoading(false);
-        };
+        }
     };
 
     return (
