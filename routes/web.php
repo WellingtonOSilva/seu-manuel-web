@@ -26,7 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('events.create');
     Route::post('events', [\App\Http\Controllers\Events\EventsController::class, 'store']);
 
-    Route::get('/chat/stream', \App\Http\Controllers\ChatController::class);
+    Route::get('/chat', \App\Http\Controllers\ChatController::class);
 });
 
 
