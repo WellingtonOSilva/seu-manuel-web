@@ -50,4 +50,4 @@ jobs:
         run: php artisan migrate
 
       - name: Tests
-        run: ./vendor/bin/pest
+        run: ./vendor/bin/pest --env=testing
