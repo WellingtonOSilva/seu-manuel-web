@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { EventType } from '@/types/event';
 import type { Vehicle } from '@/types/vehicle';
 import { NumericFormat } from 'react-number-format';
+import { eventTypeToString } from '@/helpers/converters';
 
 type Props = {
     vehicles?: Vehicle[];
@@ -48,7 +49,7 @@ export function CreateEventForm({ vehicles = [], vehicleId }: Props) {
                         <SelectContent>
                             {Object.entries(EventType).map(([key, label]) => (
                                 <SelectItem key={key} value={key}>
-                                    {label}
+                                    {eventTypeToString(label)}
                                 </SelectItem>
                             ))}
                         </SelectContent>
