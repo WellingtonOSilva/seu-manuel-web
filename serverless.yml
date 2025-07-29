@@ -29,6 +29,11 @@ provider:
         QUEUE_CONNECTION: ${env:QUEUE_CONNECTION}
         CACHE_STORE: ${env:CACHE_STORE}
         OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+        MAIL_MAILER: ses
+        AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
+        AWS_DEFAULT_REGION: ${env:AWS_REGION}
+        MAIL_FROM_ADDRESS: seu-manuel@itys.com.br
 package:
     # Files and directories to exclude from deployment
     patterns:
